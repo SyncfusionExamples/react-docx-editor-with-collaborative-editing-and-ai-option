@@ -86,7 +86,7 @@ interface EditorState {
 }
 
 class Editor extends React.Component<EditorProps, EditorState> {
-  public serviceUrl = 'http://localhost:5212/';
+  public API_BASE = 'http://localhost:5212/';
 
   public assistInstance = React.createRef<AIAssistViewComponent>();
   public container: DocumentEditorContainerComponent | null = null;
@@ -361,7 +361,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
     if (this.connection) return;
 
     this.connection = new HubConnectionBuilder()
-      .withUrl(this.serviceUrl + 'documenteditorhub', {
+      .withUrl(this.API_BASE + 'documenteditorhub', {
         skipNegotiation: true,
         transport: HttpTransportType.WebSockets,
       })
@@ -448,7 +448,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
       throw new Error("collaborativeEditingHandlerModule is undefined");
     }
 
-    const collabBaseUrl = "http://localhost:5212/api/CollaborativeEditing/";
+    const collabBaseUrl = this.API_BASE+"api/CollaborativeEditing/";
 
     handler.updateRoomInfo(roomName, version, collabBaseUrl);
     this.container?.documentEditor.open(sfdt);
@@ -480,7 +480,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
       window.history.replaceState({}, '', `?id=${roomName}`);
     }
     const httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', this.serviceUrl + 'api/CollaborativeEditing/ImportFile', true);
+    httpRequest.open('POST', this.API_BASE + 'api/CollaborativeEditing/ImportFile', true);
     httpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
     httpRequest.onreadystatechange = () => {
@@ -593,7 +593,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
                 contentChange={this.onContentChange}
                 height={'calc(100vh - 51px)'}
                 currentUser={this.currentUser}
-                serviceUrl={this.serviceUrl + 'api/documenteditor'}
+                serviceUrl={this.API_BASE + 'api/documenteditor'}
 
                 toolbarMode="Ribbon"
                 ribbonLayout="Classic"

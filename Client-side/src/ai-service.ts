@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5212";
+const API_BASE = "http://localhost:5212/";
 
 export interface ChatResponse {
     text: string;
@@ -21,7 +21,7 @@ export interface ChatRequest {
 export async function processPrompt(request: ChatRequest): Promise<string> {
 
     const response = await fetch(
-        `${API_BASE}/api/DocumentAI/Process`,
+        `${API_BASE}api/DocumentAI/Process`,
         {
             method: "POST",
             headers: {

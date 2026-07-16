@@ -9,8 +9,8 @@ import {
 } from '@syncfusion/ej2-react-filemanager';
 import { dataService } from './data-service';
 
-const SERVICE_URL = 'http://localhost:5212/';
-const FILE_OPS_URL = SERVICE_URL + 'AzureDocumentStorage/ManageDocument';
+const API_BASE = 'http://localhost:5212/';
+const FILE_OPS_URL = API_BASE + 'AzureDocumentStorage/ManageDocument';
 
 // ── Error Boundary ───────────────────────────────────────────────────────────
 interface ErrorBoundaryState {
@@ -73,8 +73,8 @@ export default function FileManagerPage() {
         setServerOnline(false);
         setServerError(
           isAbort
-            ? 'Connection timed out. Make sure the .NET API is running on http://localhost:5212.'
-            : 'Backend server is not reachable. Make sure the .NET API is running on http://localhost:5212.'
+            ? 'Connection timed out. Make sure the .NET API is running on'+ API_BASE +'.'
+            : 'Backend server is not reachable. Make sure the .NET API is running on'+ API_BASE +'.'
         );
       }
     }

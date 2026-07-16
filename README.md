@@ -89,8 +89,6 @@ Example:
 }
 ```
 
-Also configure the Azure Blob Storage connection details according to your environment.
-
 ---
 
 ## Run the Server-side Application
@@ -153,17 +151,19 @@ After the Server-side application starts successfully, note the HTTPS URL displa
 
 If necessary, update the Web API base URL in the Client-side project so that it points to the running Server-side application.
 
-Example: Open the following file:
+Example: Open the following files:
 
 ```
 Client-side/src/ai-service.ts
+Client-side/src/FileManager.tsx
+Client-side/src/DocumentEditor.tsx
 ```
-Update the first line as:
+Update the `API_BASE` constant to match the running Web API URL.
 
 ```TypeScript
-const API_BASE = "http://localhost:5212";
+const API_BASE = "http://localhost:5212/";
 ```
-
+> **Note:** Replace `5212` with the actual port assigned to your Web API.
 ---
 
 ## Verify the Sample
