@@ -258,7 +258,7 @@ export class TitleBar {
       this.documentEditor.documentName = 'Untitled';
     }
     if (this.documentTitle) {
-      this.documentTitle.textContent = 'Collaborative Editing';
+      this.documentTitle.textContent = 'Collaborative Editing with AI Assistance';
     }
   };
 

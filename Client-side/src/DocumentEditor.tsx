@@ -3,6 +3,12 @@ import * as React from 'react';
 import { useNavigate, useParams, type NavigateFunction } from 'react-router-dom';
 import "./editor-helpers";
 import "./AIPopup.css";
+import "./App.css";
+import '@syncfusion/ej2-base/styles/material.css';
+import '@syncfusion/ej2-buttons/styles/material.css';
+import '@syncfusion/ej2-popups/styles/material.css';
+import '@syncfusion/ej2-navigations/styles/material.css';
+import '@syncfusion/ej2-react-documenteditor/styles/material.css';
 import "./helpers";
 import { AIAssistViewComponent, ViewsDirective, ViewDirective, PromptResponse } from '@syncfusion/ej2-react-interactive-chat';
 
@@ -131,20 +137,35 @@ class Editor extends React.Component<EditorProps, EditorState> {
     if (!editor) return;
 
     setTimeout(() => {
-        try {
-            const pos = window?.getAIAssistBtnPosition?.();
-            if (pos) {
-                this.setState({
-                    assistInitialPos: {
-                        left: Math.round(pos.x),
-                        top: Math.round(pos.y),
-                        width: Math.round(24 * editor.zoomFactor),
-                        height: Math.round(24 * editor.zoomFactor)
-                    }
-                });
-            }
-            window.setAiAssistBtnIconSize?.(Math.round(14 * editor.zoomFactor), Math.round(24 * editor.zoomFactor));
-        } catch { }
+      try {
+        const pos = window?.getAIAssistBtnPosition?.();
+        if (!pos) return;
+
+        const nextPos = {
+          left: Math.round(pos.x),
+          top: Math.round(pos.y),
+          width: Math.round(24 * editor.zoomFactor),
+          height: Math.round(24 * editor.zoomFactor)
+        };
+
+        this.setState(prev => {
+          const cur = prev.assistInitialPos;
+          if (
+            cur.left === nextPos.left &&
+            cur.top === nextPos.top &&
+            cur.width === nextPos.width &&
+            cur.height === nextPos.height
+          ) {
+            return null;
+          }
+          return { assistInitialPos: nextPos };
+        });
+
+        window.setAiAssistBtnIconSize?.(
+          Math.round(14 * editor.zoomFactor),
+          Math.round(24 * editor.zoomFactor)
+        );
+      } catch {}
     }, 10);
   };
 
@@ -160,32 +181,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
     }, 10);
   };
 
-  private attachCaretTracking = (): void => {
-    const editorHost = document.getElementById('container');
-    const viewerContainer =
-      document.querySelector('#container_editor_viewerContainer') ||
-      document.querySelector('#document-editor_editor_viewerContainer');
-
-    const refresh = () => this.updateAssistButtonPosition();
-
-    editorHost?.addEventListener('mouseup', refresh);
-    editorHost?.addEventListener('keyup', refresh);
-    editorHost?.addEventListener('mousedown', refresh);
-    editorHost?.addEventListener('touchend', refresh);
-    viewerContainer?.addEventListener('scroll', refresh);
-
-    this.caretTrackerId = window.setInterval(() => {
-      this.updateAssistButtonPosition();
-    }, 150);
-  };
-
-  private detachCaretTracking = (): void => {
-    if (this.caretTrackerId) {
-      window.clearInterval(this.caretTrackerId);
-      this.caretTrackerId = undefined;
-    }
-  };
-
+  
   private showChatPane = (): void => {
     this.setState({
         openChat: true,
@@ -239,7 +235,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
   public componentWillUnmount(): void {
     this.titleBar?.destroy();
     window.onbeforeunload = null;
-    this.detachCaretTracking();
     window.removeEventListener(
       "resize",
       this.onResize
@@ -263,14 +258,14 @@ class Editor extends React.Component<EditorProps, EditorState> {
     }
   }
 
-  public onContentChange = (args: ContainerContentChangeEventArgs) => {
+  public onContentChange = (args: ContainerContentChangeEventArgs) => {    
+    this.updateAssistButtonPosition();
     const handler = this.container?.documentEditor?.collaborativeEditingHandlerModule;
     if (!handler) {  
       return;
     }
 
     handler.sendActionToServer(args.operations as Operation[]);
-    this.updateAssistButtonPosition();
   };
 
   public onCreated = (): void => {
@@ -309,7 +304,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
     this.container.documentEditor.zoomFactorChange = () => {
       this.onZoomFactorChange();
     };
-    this.attachCaretTracking();
     this.initializeTitleBar();
     this.initializeSignalR();
     this.loadDocumentFromServer();
@@ -596,7 +590,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
                 serviceUrl={this.API_BASE + 'api/documenteditor'}
 
                 toolbarMode="Ribbon"
-                ribbonLayout="Classic"
                 enableToolbar={true}
                 locale="en-US"
               >

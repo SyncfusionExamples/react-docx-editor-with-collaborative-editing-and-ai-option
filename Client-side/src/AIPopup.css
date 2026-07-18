@@ -22,22 +22,6 @@
 
 .e-improved-word {
   color: #228B22;
-  font-weight: 600;
-}
-
-.my-ai-chat-btn {
-
-    background: #0D6EFD !important;
-    border-color: #0D6EFD !important;
-    color: #fff !important;
-
-}
-
-.my-ai-chat-btn:hover {
-
-    background: #0B5ED7 !important;
-    border-color: #0A58CA !important;
-
 }
 
 .ai-chat-btn.e-btn {
@@ -148,21 +132,6 @@
   content: '\e950';
 }
 
-.ai-assist-btn .e-icons.e-ai-assist-btn::before,
-.ai-chat-btn .e-icons.e-ai-chat-btn::before,
-.stop-popup-text-icon::before,
-.e-aiassist-chat .e-aiassist-chat-icon::before,
-.e-aiassist-chat .e-aiassist-page-icon::before {
-  font-family: 'e-icons' !important;
-  font-style: normal;
-  font-weight: 400;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .e-bigger .ai-assist-btn .e-icons.e-ai-assist-btn {
   height: 16px;
   width: 16px;
@@ -176,40 +145,6 @@
   color: #0F6CBD !important;
   min-height: 4px !important;
   min-width: 4px !important;
-}
-
-.ai-assist-btn.e-btn:hover,
-.ai-assist-btn.e-btn:focus,
-.ai-assist-btn.e-btn:active {
-  background-color: #ffffff !important;
-  border-color: #0F6CBD !important;
-  color: #0F6CBD !important;
-}
-
-.ai-assist-btn .e-icons.e-ai-assist-btn,
-.ai-chat-btn .e-icons.e-ai-chat-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-family: 'e-icons' !important;
-}
-
-.ai-chat-btn .e-icons.e-ai-chat-btn {
-  color: #ffffff !important;
-}
-
-.ai-assist-btn .e-icons.e-ai-assist-btn::before,
-.ai-chat-btn .e-icons.e-ai-chat-btn::before {
-  font-size: 16px;
-}
-
-.ai-chat-btn.e-btn:hover,
-.ai-chat-btn.e-btn:focus,
-.ai-chat-btn.e-btn:active {
-  background-color: #0a5aa1 !important;
-  border-color: #0a5aa1 !important;
 }
 
 .ai-generate-dialog .e-dlg-header-content {
@@ -391,21 +326,6 @@
 
 .e-bigger .e-smart-editor-dialog .e-dlg-content {
   padding: 0 20px !important;
-}
-
-.e-smart-editor-dialog .pane-text-area .e-original-word,
-.e-smart-editor-dialog .pane-text-area .e-improved-word {
-  display: inline;
-  padding: 0 1px;
-  border-radius: 2px;
-}
-
-.e-smart-editor-dialog .pane-text-area .e-original-word {
-  background-color: rgba(197, 15, 31, 0.12);
-}
-
-.e-smart-editor-dialog .pane-text-area .e-improved-word {
-  background-color: rgba(34, 139, 34, 0.12);
 }
 
 .ai-settings-menu ul {

@@ -11,6 +11,11 @@ import { FabComponent } from '@syncfusion/ej2-react-buttons';
 import { createSpinner, showSpinner, hideSpinner } from '@syncfusion/ej2-popups';
 import './editor-helpers.js';
 import './AIPopup.css';
+import '@syncfusion/ej2-base/styles/material.css';
+import '@syncfusion/ej2-buttons/styles/material.css';
+import '@syncfusion/ej2-popups/styles/material.css';
+import '@syncfusion/ej2-navigations/styles/material.css';
+import '@syncfusion/ej2-react-documenteditor/styles/material.css';
 import { processPrompt } from './ai-service';
 
 const GrammarOptions = [

@@ -1075,12 +1075,7 @@ body .col-lg-9 {
     #documenteditor_titlebar #documenteditor-share {
         padding: 4px 8px;
     }
-
-    .e-fab.ai-assist-btn.e-hide,
-    .document-editor-container.e-hide {
-        display: none !important;
-    }
-
+    
     .document-editor-container {
         float: none !important;
     }

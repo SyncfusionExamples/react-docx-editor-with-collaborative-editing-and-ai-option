@@ -1,4 +1,4 @@
-# React DOCX Editor with Collaborative Editing and AI
+# React DOCX Editor with Collaborative Editing and AI Assistance
 
 ## Introduction
 
@@ -179,7 +179,15 @@ const API_BASE = "http://localhost:5212/";
 9. Verify that the generated content is synchronized across all connected collaborators.
 
 ---
+## Demo
 
+<p align="center">
+  <img
+    src="asset/collaborative-editing-with-ai-assistance-react-docx-editor.gif"
+    alt="React DOCX Editor - Collaborative Editing with AI Assistance Demo"
+    width="1000" />
+</p>
+---
 # Server-side Web API Endpoints
 
 | Endpoint                                         | Method      | Description                                                                                       |
