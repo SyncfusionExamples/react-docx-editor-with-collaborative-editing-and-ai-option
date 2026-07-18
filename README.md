@@ -187,6 +187,7 @@ const API_BASE = "http://localhost:5212/";
     alt="React DOCX Editor - Collaborative Editing with AI Assistance Demo"
     width="1000" />
 </p>
+
 ---
 # Server-side Web API Endpoints
 
