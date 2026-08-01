@@ -1,72 +1,50 @@
 window.getAIAssistBtnPosition = function () {
-  var documentEditor = document.getElementById("document-editor") || document.getElementById("container") || document.querySelector(".e-documenteditor-container");
+  var documentEditor = document.querySelector(".control-section");
   if (!documentEditor) {
     return;
   }
-
-  var documentEditorRect = documentEditor.getBoundingClientRect();
-  var viewerContainer =
-    document.querySelector("#document-editor_editor_viewerContainer") ||
-    document.querySelector("#container_editor_viewerContainer") ||
-    document.querySelector(".e-de-viewer-container");
+  var documnetEditorRect = documentEditor.getBoundingClientRect();
+  var documnetEditorTop = documnetEditorRect.top;
+  var documnetEditorLeft = documnetEditorRect.left;
+  var viewerContainer = document.querySelector("#document-editor_editor_viewerContainer");
   if (!viewerContainer) {
     return;
   }
-
+  var viewerContainerRect = viewerContainer.getBoundingClientRect();
+  var viewerContainerTop = viewerContainerRect.top;
+  var viewerContainerLeft = viewerContainerRect.left;
   var cursor = document.querySelector('.e-de-blink-cursor');
   if (!cursor) {
     return;
   }
-
-  var page = cursor.closest('.e-de-page') || document.querySelector('.e-de-page');
-  var pageRect = page ? page.getBoundingClientRect() : null;
   var cursorRect = cursor.getBoundingClientRect();
-  var rawCursorTop = parseFloat(cursor.style.top || '0');
-  var rawCursorLeft = parseFloat(cursor.style.left || '0');
-
-  var caretTop = cursor.style.display === 'none' && !Number.isNaN(rawCursorTop)
-    ? viewerContainer.getBoundingClientRect().top + rawCursorTop
-    : cursorRect.top;
-
-  var ruler =
-    document.querySelector("#document-editor_editor_viewerContainer .e-de-hRuler .e-de-hRuler") ||
-    document.querySelector("#container_editor_viewerContainer .e-de-hRuler .e-de-hRuler") ||
-    document.querySelector(".e-de-hRuler .e-de-hRuler");
-
-  var pageLeft = pageRect ? pageRect.left : viewerContainer.getBoundingClientRect().left;
-  var pageWidth = pageRect ? pageRect.width : 0;
-  var rulerLeft = 0;
-
-  if (ruler) {
-    var marginLeft = parseFloat(ruler.style.marginLeft || '0');
-    rulerLeft = Number.isNaN(marginLeft) ? 0 : marginLeft;
+  var cursorTop = cursor.style.display === 'none' ? parseInt(cursor.style.top.split("px")[0], 10) : cursorRect.top;
+  var viewercontainer = document.querySelector("#document-editor_editor_viewerContainer .e-de-hRuler .e-de-hRuler");
+  if (!viewercontainer) {
+    return;
   }
-
-  var caretLeft = cursor.style.display === 'none' && !Number.isNaN(rawCursorLeft)
-    ? viewerContainer.getBoundingClientRect().left + rawCursorLeft
-    : cursorRect.left;
-
-  var gutterOffset = Math.max(36, Math.min(56, pageWidth ? pageWidth * 0.08 : 40));
-  var x = pageLeft - documentEditorRect.left + rulerLeft - gutterOffset;
-
-  if (!Number.isFinite(x) || x < 0) {
-    x = caretLeft - documentEditorRect.left - 44;
+  var rulerLeft = parseInt(viewercontainer.style.marginLeft.split("px")[0], 10);
+  var viewercontainerWidth = document.querySelector(".e-de-hRuler .e-de-hRuler").offsetWidth;
+  if (!viewercontainerWidth && viewercontainerWidth !== 0) {
+    return;
   }
+  var AiButtonPosition = viewercontainerWidth / 20;
+  var markIndicator = document.querySelector("#document-editor_editor_markIndicator");
+  var vRuleIndicator = document.querySelector("#document-editor_editor_vRulerBottom");
+  if (!markIndicator || !vRuleIndicator) {
+    return;
+  }
+  var markIndicatorRect = markIndicator.getBoundingClientRect().top;
+  var vRuleIndicatorRect = vRuleIndicator.getBoundingClientRect().top;
+  var scrollDifference = markIndicatorRect - vRuleIndicatorRect;
 
-  var y = caretTop - documentEditorRect.top - 4;
-
-  return {
-    x: Math.round(x),
-    y: Math.round(y)
-  };
+  var y = cursor.style.display === 'none' ? ((viewerContainerTop - documnetEditorTop) + cursorTop) - scrollDifference : (cursorTop - documnetEditorTop);
+  var x = (viewerContainerLeft - documnetEditorLeft) + rulerLeft + AiButtonPosition;
+  return { x: x, y: y };
 };
 
 window.getAIChatBtnPosition = function () {
-  var documnetEditor = 
-    document.getElementById("document-editor") ||
-    document.getElementById("container") ||
-    document.querySelector(".e-documenteditor-container");
-
+  var documnetEditor = document.querySelector("#document-editor");
   if (!documnetEditor) {
     return;
   }
@@ -172,10 +150,7 @@ window.getGeneratingDraftPosition = function () {
   var aiButtonRect = aiButton.getBoundingClientRect();
   var aiButtonLeft = aiButtonRect.left;
   var aiButtonTop = aiButtonRect.top;
-  var documnetEditor = 
-    document.getElementById("document-editor") ||
-    document.getElementById("container") ||
-    document.querySelector(".e-documenteditor-container");
+  var documnetEditor = document.querySelector(".control-section");
   if (!documnetEditor) {
     return;
   }

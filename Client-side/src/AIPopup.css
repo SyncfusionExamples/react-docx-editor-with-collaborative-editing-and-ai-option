@@ -15,7 +15,7 @@
   min-width: 280px !important;
 }
 
-.e-original-word {
+.e-original-word .e-original-word {
   color: #DC143C;
   text-decoration: line-through;
 }

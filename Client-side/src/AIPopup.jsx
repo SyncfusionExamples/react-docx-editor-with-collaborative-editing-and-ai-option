@@ -734,6 +734,7 @@ export default function AIPopup({ editorRef, onShowChatPane, chatOpen, assistIni
           const selText = getSelectionText();
           if (!!selText && selText.trim().length > 0) {
             setIsSmartEditor(true);
+            assistFabRef.title = 'Refine the content';
           }
 
           const pos = window?.getAIAssistBtnPosition?.();
@@ -949,7 +950,7 @@ export default function AIPopup({ editorRef, onShowChatPane, chatOpen, assistIni
       />
       <FabComponent
         ref={chatFabRef}
-        cssClass="ai-chat-btn my-ai-chat-btn"
+        cssClass="ai-chat-btn"
         iconCss="e-icons e-ai-chat-btn"
         title="Summarization and Q&A"
         visible={fabChatVisible}

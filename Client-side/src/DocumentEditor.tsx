@@ -10,7 +10,7 @@ import '@syncfusion/ej2-popups/styles/material.css';
 import '@syncfusion/ej2-navigations/styles/material.css';
 import '@syncfusion/ej2-react-documenteditor/styles/material.css';
 import "./helpers";
-import { AIAssistViewComponent, ViewsDirective, ViewDirective, PromptResponse } from '@syncfusion/ej2-react-interactive-chat';
+import { AIAssistViewComponent, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-interactive-chat';
 
 import { getDocumentText } from './summarizer';
 
@@ -138,14 +138,15 @@ class Editor extends React.Component<EditorProps, EditorState> {
 
     setTimeout(() => {
       try {
+        const zoom = editor.zoomFactor;
         const pos = window?.getAIAssistBtnPosition?.();
         if (!pos) return;
 
         const nextPos = {
           left: Math.round(pos.x),
           top: Math.round(pos.y),
-          width: Math.round(24 * editor.zoomFactor),
-          height: Math.round(24 * editor.zoomFactor)
+          width: Math.round(24 * zoom),
+          height: Math.round(24 * zoom)
         };
 
         this.setState(prev => {
@@ -155,16 +156,14 @@ class Editor extends React.Component<EditorProps, EditorState> {
             cur.top === nextPos.top &&
             cur.width === nextPos.width &&
             cur.height === nextPos.height
-          ) {
+          ) 
+          {
             return null;
           }
           return { assistInitialPos: nextPos };
         });
 
-        window.setAiAssistBtnIconSize?.(
-          Math.round(14 * editor.zoomFactor),
-          Math.round(24 * editor.zoomFactor)
-        );
+        window.setAiAssistBtnIconSize?.(Math.round(14 * zoom));
       } catch {}
     }, 10);
   };
@@ -521,6 +520,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
 
     return (
       <div className="control-pane">
+        <div className='control-section'>
         {/* Username Dialog */}
         {showDialog && (
           <div id="dialog-container">
@@ -569,43 +569,39 @@ class Editor extends React.Component<EditorProps, EditorState> {
                 />
               </div>
             </div>
+            <div className="editor-container" id="main-container" style={{ position: 'relative' }}>
+              <div className="title-bar-section">
+                <div id="documenteditor_titlebar" className="e-de-ctn-title"></div>
+              </div>
+            <div id='document-editor-page'>
+              <div id='documentEditorDiv' className='document-editor-container' style={{ height: `calc(100vh - 53px)`, width: openChat ? '65%' : '100%', float: 'left' }}>
+                <DocumentEditorContainerComponent
+                  id="document-editor"
+                  ref={(scope: DocumentEditorContainerComponent | null) => {
+                    this.container = scope;
+                  }}
+                  created={this.onCreated}
+                  contentChange={this.onContentChange}
+                  currentUser={this.currentUser}
+                  serviceUrl={this.API_BASE + 'api/documenteditor'}
+                  height="100%"
+                  toolbarMode="Ribbon"
+                  enableToolbar={true}
+                  locale="en-US"
+                >
+                  <Inject services={[Ribbon]} />
+                </DocumentEditorContainerComponent>
+                <AIPopup
+                  editorRef={this.container}
 
-            <div id="documenteditor_titlebar" className="e-de-ctn-title"></div>
+                  chatOpen={this.state.openChat}
 
-            <div id="documenteditor_container_body">
-              <DocumentEditorContainerComponent
-                id="container"
-                style={{
-                    width:this.state.openChat ? "65%" : "100%",
-                    float:"left",
-                    height:"calc(100vh - 51px)"
-                }}
-                ref={(scope: DocumentEditorContainerComponent | null) => {
-                  this.container = scope;
-                }}
-                created={this.onCreated}
-                contentChange={this.onContentChange}
-                height={'calc(100vh - 51px)'}
-                currentUser={this.currentUser}
-                serviceUrl={this.API_BASE + 'api/documenteditor'}
+                  assistInitialPos={this.state.assistInitialPos}
 
-                toolbarMode="Ribbon"
-                enableToolbar={true}
-                locale="en-US"
-              >
-                <Inject services={[Ribbon]} />
-              </DocumentEditorContainerComponent>
-              <AIPopup
-                editorRef={this.container}
+                  isAIEnabled={this.state.isAIEnabled}
 
-                chatOpen={this.state.openChat}
-
-                assistInitialPos={this.state.assistInitialPos}
-
-                isAIEnabled={this.state.isAIEnabled}
-
-                onShowChatPane={this.showChatPane} />          
-            </div>
+                  onShowChatPane={this.showChatPane} />          
+              </div>
              {this.state.openChat && (
 
               <div
@@ -730,10 +726,12 @@ class Editor extends React.Component<EditorProps, EditorState> {
                       </ViewsDirective>
                     </AIAssistViewComponent>
               </div>
-
             )}
           </div>
+        </div>
+        </div>
         )}
+      </div>
       </div>
     );
   }
