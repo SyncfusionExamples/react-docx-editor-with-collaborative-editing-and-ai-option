@@ -294,6 +294,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
     // Optional editor settings
     this.container.documentEditor.pageOutline = '#E0E0E0';
     this.container.documentEditor.acceptTab = true;
+    this.container.documentEditorSettings.showRuler = true;
     this.container.documentEditor.resize();
     this.onZoomFactorChange();
     this.container.documentEditor.selection.selectRange(
