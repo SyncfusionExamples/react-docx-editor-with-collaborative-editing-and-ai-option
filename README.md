@@ -183,7 +183,7 @@ const API_BASE = "http://localhost:5212/";
 
 <p align="center">
   <img
-    src="asset/collaborative-editing-with-ai-assistance-react-docx-editor.gif"
+    src="images/collaborative-editing-with-ai-assistance-react-docx-editor.gif"
     alt="React DOCX Editor - Collaborative Editing with AI Assistance Demo"
     width="1000" />
 </p>
@@ -239,21 +239,6 @@ The application follows a client-server architecture that combines collaborative
                     Connected Collaborative Users
 ```
 
-## Workflow Definition
-
-1. The React application loads documents from Azure Blob Storage.
-2. Users open the same document for collaborative editing.
-3. Editing operations are sent to the ASP.NET Core Web API.
-4. The server stores synchronization operations in Azure Redis Cache.
-5. SignalR broadcasts document changes to every connected collaborator.
-6. All users receive updates instantly without refreshing the document.
-7. When AI assistance is requested, the prompt is sent to the `DocumentAI` API.
-8. Azure OpenAI generates the requested content.
-9. The generated content is inserted into the document.
-10. The insertion is synchronized in real time to every connected user.
-
----
-
 # Resources
 
 - **Product page:**   [Syncfusion® React DOCX Editor](https://www.syncfusion.com/docx-editor-sdk/react-docx-editor?utm_source=github&utm_medium=listing&utm_campaign=github-github-documenteditor-examples) 
@@ -270,4 +255,4 @@ Request new feature through [Syncfusion® feedback portal](https://www.syncfusi
 
 # License
 
-This is a commercial product and requires a paid license for possession or use Syncfusion's licensed software, including this component, is subject to the terms and conditions of [Syncfusion's EULA](https://www.syncfusion.com/license/studio/34.1.29/syncfusion_essential_studio_eula.pdf?utm_source=github&utm_medium=listing&utm_campaign=github-github-documenteditor-examples). You can purchase a licnense [here](https://www.syncfusion.com/sales/products?utm_source=github&utm_medium=listing&utm_campaign=github-github-documenteditor-examples) or start a free 30\-day trial [here](https://www.syncfusion.com/account/manage-trials/start-trials?utm_source=github&utm_medium=listing&utm_campaign=github-github-documenteditor-examples). 
+This is a commercial product and requires a paid license for possession or use Syncfusion's licensed software, including this component, is subject to the terms and conditions of [Syncfusion's EULA](https://www.syncfusion.com/license/studio/syncfusion_essential_studio_eula.pdf?utm_source=github&utm_medium=listing&utm_campaign=github-github-documenteditor-examples). You can purchase a licnense [here](https://www.syncfusion.com/sales/products?utm_source=github&utm_medium=listing&utm_campaign=github-github-documenteditor-examples) or start a free 30\-day trial [here](https://www.syncfusion.com/account/manage-trials/start-trials?utm_source=github&utm_medium=listing&utm_campaign=github-github-documenteditor-examples). 
